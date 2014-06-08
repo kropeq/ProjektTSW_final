@@ -1,0 +1,45 @@
+<div id="singleArticle">
+		
+			<%if (isAdminLogged) {%>
+    			    <a id="deleteArticle" href="#">usuń</a>
+			    <script>
+				$('#deleteArticle').click(function(event){
+				    if (!confirm('Na pewno usunąć?')) return;
+				    $.post( "/deleteNews/<%=news.id%>", 
+					{},
+					function( data ) {
+					if (data == 'removed') hideContent('/<%=prev%>');
+					})
+				});
+			    </script>
+			<%}%>
+			
+			<%if (isAdminLogged) {%>
+    			    <a id="editArticle" href="#">edytuj</a>
+			    <script>
+				$('#editArticle').click(function(event){
+				    hideContent("/editNews/<%=news.id%>/<%=prev%>"); 
+				});
+			    </script>
+			<%}%>
+			
+			<img src="graph/news1.jpg" />
+
+			<h2><%= news.title%></h2>
+
+			<p>
+			    <%= news.content%>
+			</p>
+			
+			
+    			    <a id="back" href="#">wróć</a>
+    			    <script>
+    				$('#back').click(function() {
+    				    hideContent('/<%=prev%>');
+    				});
+    			    </script>
+    			    <br>
+    			    <br>
+    			    
+		</div>
+		

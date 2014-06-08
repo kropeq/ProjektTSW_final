@@ -1,0 +1,46 @@
+		<%if (isAdminLogged) {%>
+		    <a id="addArticle" href="#">Dodaj artykuł</a>
+		    <script>
+			$('#addArticle').click(function(){
+			    hideContent('/editNews/main');
+			});
+		    </script>
+		<%}%>
+		<div id="news">
+		    <% for(var i=0; i<newsList.length; i++) { %>
+			<div class="newsBox">
+				<div class="newsBoxImage">
+					<img src="graph/news<%=((i%9) + 1)%>.jpg" />
+				</div>
+				<div class="newsBoxDescription">
+					<h2><%= newsList[i].title %></h2>
+					<p><%= newsList[i].content.substring(0, newsList[i].content.length > 300 ? 300 : newsList[i].content.length) %><%= newsList[i].content.length > 300 ? '...' : ''%></p>
+					<div>
+						<div class="readMore">
+							<a href="/news/<%= newsList[i].id%>">czytaj więcej</a>
+						</div>
+						<%if (isAdminLogged) {%>
+						<div class="editArticle">
+							<a href="/editNews/<%= newsList[i].id%>">edytuj artykuł</a>
+						</div>
+						<%}%>
+					</div>
+				</div>
+			</div>
+		    <%}%>
+		    <% if (newsList.length == 0) {%>
+			<p class="opis">Nie zdefiniowano jeszcze żadnego newsa</p>
+		    <%}%>
+		</div>
+		<script>
+		    $(".readMore").find('a').click(function(event){
+			event.preventDefault();
+			hideContent($(this).attr('href')+'/main');
+		    });
+		    <%if (isAdminLogged) {%>
+		    $(".editArticle").find('a').click(function(event){
+			event.preventDefault();
+			hideContent($(this).attr('href')+"/main");
+		    });
+		    <%}%>
+		</script>

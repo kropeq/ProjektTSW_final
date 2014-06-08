@@ -1,0 +1,54 @@
+	<p class="opis">Logowanie administratora:</span>
+	<form id="fLogin">
+           <input type="text" name="login" id="iLogin" placeholder="login"/><br />
+           <input type="password" name="password" id="iPass" placeholder="hasło"/><br />
+		 <a id="login" href="#">zaloguj</a>
+		</form>
+		
+		
+	<p class="opis">Chcesz mieć dostęp do relacji live? Podaj swój nick!</span>
+	<form id="fLoginUser">
+        <input type="text" name="nick" id="iNick" placeholder="twój nick"/><br />
+		 <a id="loginUser" href="#">przejdź do live</a>
+	</form>
+	
+	<script>
+	    $('#login').click(function(){
+		$.post( "/login", {login: $('#iLogin').val(), pass:$('#iPass').val()},  function( data ) {
+		    if (data == 'logged')
+			{
+			// podmieniamy buttona w menu
+			$('#loginLogoutButton').html('WYLOGUJ <small>(Admin)</small>').attr('href', '/logout');
+			$.get('/relacja', function(data) { $('#content').html(data);});
+			}
+		  });
+	    });
+	    $('#fLogin').find('input').keydown(function(event){
+		if (event.which == 13)
+		$('#login').click();
+	    });
+	    $('#iLogin').focus();
+	    
+	    $('#loginUser').click(function(){
+		var nick = $('#iNick').val();
+		if (!nick.match(/^[a-z0-9]{2,15}$/i))
+		    {
+		    alert("Nick może zawierać tylko litery i cyfry (od 2 do 15 znaków)!");
+		    return;
+		    }
+		$.post( "/loginUser", {nick: $('#iNick').val()},  function( data ) {
+		    if (data == 'logged')
+			{
+			// podmieniamy buttona w menu
+			$('#loginLogoutButton').html('WYLOGUJ <small>('+$('#iNick').val()+')</small>').attr('href', '/logout');
+			$.get('/relacja', function(data) { $('#content').html(data);});
+			}
+		  });
+	    });
+	    $('#iNick').keydown(function(event){
+		if (event.which == 13) {
+		    event.preventDefault();
+		    $('#loginUser').click();
+		    }
+	    });
+	</script>

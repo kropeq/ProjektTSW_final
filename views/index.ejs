@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<link rel="Stylesheet" type="text/css" href="css/style.css" />
+
+<script src="/socket.io/socket.io.js"></script>
+
+<!-- Green Sock -->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/CSSPlugin.min.js"></script>
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/easing/EasePack.min.js"></script>
+            <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenLite.min.js"></script>
+                <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TimelineLite.min.js"></script>
+                    <!-- Jquery -->
+                        <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+                        
+                            <script src="topMenu.js"></script>
+<script src="main.js"></script>
+
+</head>
+<body>
+	<div id="header">
+		<div id="headerWrapper">
+			<div id="logo" href="/main">
+				<img src="graph/logo.png"/>
+			</div>
+			<div id="menu">
+				<ul>
+					<li><a href="/news">NEWS</a></li>
+					<li><a href="/relacja">RELACJA LIVE</a></li>
+					<%if (isLoggedAdmin || isLoggedUser) {%>
+					<li><a id="loginLogoutButton" href="/logout">WYLOGUJ (<small><%= userNick %></small>)</a></li>
+					<% } else {%>
+					<li><a id="loginLogoutButton" href="/login">ZALOGUJ</a></li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div id="content">
+
+	</div>
+<body>
+<html>

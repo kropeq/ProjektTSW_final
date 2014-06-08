@@ -1,0 +1,17 @@
+<form id="fEditArticle">
+    <%if(typeof news!='undefined') {%><input type="hidden" name="id" value="<%= news.id %>"/><%}%>
+    <input id="articleTitle" type="text" name="title" placeholder="Tytuł" <%if (typeof news!='undefined') {%>value="<%=news.title %>"<%}%>/><br />
+    <textarea id="articleEditor" name="content" placeholder="Treść artykułu"><%if (typeof news!='undefined') {%><%=news.content %><%}%></textarea>
+    <br/><a id="save" href="#">save</a>
+    <script>
+	$('#save').click(function(){
+	    //weryfikacja
+	    $.post( "/editNews", $('#fEditArticle').serialize(),  function( data ) {
+	    if (data == 'saved') {
+	    hideContent('/<%=prev%>');
+	    }
+	    else alert(data);
+	    });
+	});
+    </script>
+</form>

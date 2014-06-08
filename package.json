@@ -1,0 +1,25 @@
+{
+  "name": "NodeApp",
+  "version": "0.0.1",
+  "description": "Projekt TSW - skoki",
+  "scripts": {
+    "start": "node serwer.js"
+  },
+  "dependencies": {
+    "express": "",
+    "less-middleware": "^0.1.15",
+    "socket.io": "",
+    "socket.io-client": "",
+    "mongoose": "",
+    "cookie-parser": "",
+    "express-session": "",
+    "body-parser": "",
+    "moment": "",
+    "ejs": ""
+  },
+  "engine": "node 0.10.x",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-compress": "^0.9.1"
+  }
+}

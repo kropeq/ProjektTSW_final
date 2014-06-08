@@ -1,0 +1,117 @@
+<!-- Ładowanie ajaxem -->
+
+<h1 class="liveHeader">RELACJA LIVE</h1>
+<h1 class="czatHeader">CZAT ONLINE</h1>
+
+<div id="liveWrapper">
+<div id="leftColumn">
+			
+			<div id="liveRelation">
+			</div>
+	
+		</div>
+
+		<div id="rightColumn">
+		</div>
+		</div>
+		<div id="postWrapper">
+		    <%if (isAdminLogged) {%>
+		    <div id="postLeft">
+		    <textarea id="adminMsg" rows="" cols="" ></textarea>
+		    <br><br>
+	<a id="sendLeft" href="#">wyślij</a>
+		    </div>
+		    <%}%>
+			<div id="postRight">
+			<textarea rows="" id="userMsg" cols="" ></textarea>
+			<br><br>
+	<a id="sendRight" href="#">wyślij</a>
+			
+		
+		
+		<script>
+		
+		$(document).ready(function(){
+
+  h = $(window).height();
+  
+  $('#liveWrapper').css({height:(h-($('#header').height()*2)-$('#postWrapper').height()-$('#liveHeader').height())});
+  
+  });
+  
+  resizeElements = function(){
+  
+  h = $(window).height();
+  $('#liveWrapper').css({height:(h-($('#header').height()*2)-$('#postWrapper').height()-$('#liveHeader').height())});
+  
+  };
+  
+	$(window).on('resize',resizeElements);		
+		
+  
+  
+  
+			var socket = io.connect("localhost:3000");
+			<%if (isAdminLogged) {%>
+			adminSendMsg = function(msg)
+			    {
+			    socket.emit('adminChannel', msg);
+			    $('#adminMsg').val('');
+			    }
+			$('#sendLeft').click(function(){
+			    adminSendMsg($('#adminMsg').val());
+			});
+			$('#adminMsg').keyup(function(e){
+			    if(e.which == 13) {
+			    adminSendMsg($('#adminMsg').val());
+			    }
+			});
+			<%}%>
+			socket.removeListener('adminMsg');
+			socket.on('adminMsg', function(dane) {
+			    $('<div class="liveRelationRow"><div class="time">'+dane.time+'</div><div class="icon"><img src="graph/clockIcon.png" /></div><div class="liveDescription">'+dane.message+'</div></div>').hide().prependTo('#liveRelation').slideDown();
+			});
+			
+			// ładowanie poprzednich postow
+			socket.emit('loadAdminPosts', 'load');
+			socket.removeListener('adminMsgs');
+			socket.on('adminMsgs', function(listaDanych) {
+			    listaDanych.forEach(function(dane){
+				if (dane.time)
+				$('#liveRelation').append('<div class="liveRelationRow"><div class="time">'+dane.time.substring(11,16)+'</div><div class="icon"><img src="graph/clockIcon.png" /></div><div class="liveDescription">'+dane.message+'</div></div>');
+			    });
+			});
+			
+			
+			userNick = 'Test';
+			userSendMsg = function(msg)
+			    {
+			    sendInfo = {message: msg, nick: '<%= userNick %>'};
+			    socket.emit('usersChannel', sendInfo);
+			    $('#userMsg').val('');
+			    }
+			$('#sendRight').click(function(){
+			    userSendMsg($('#userMsg').val());
+			});
+			$('#userMsg').keyup(function(e){
+			    if(e.which == 13) {
+			    userSendMsg($('#userMsg').val());
+			    }
+			});
+			socket.removeListener('userMsg');
+			socket.on('userMsg', function(dane) {
+			    $('<div class="userPost"><div class="cloud">'+dane.message+'</div><div class="cloudDynks"></div><div class="userData"><div class="nick">'+dane.nick+'</div><div class="PostTime">'+dane.time+'</div></div></div>').hide().prependTo('#rightColumn').slideDown();
+			});
+			
+			// ładowanie poprzednich postow
+			socket.emit('loadChatPosts', 'load');
+			socket.removeListener('chatPosts');
+			socket.on('chatPosts', function(listaDanych) {
+			    listaDanych.forEach(function(dane){
+				if (dane.time)
+				$('#rightColumn').append('<div class="userPost"><div class="cloud">'+dane.message+'</div><div class="cloudDynks"></div><div class="userData"><div class="nick">'+dane.nick+'</div><div class="PostTime">'+dane.time.substring(11,16)+'</div></div></div>');
+			    });
+			});
+			
+			
+		</script>
