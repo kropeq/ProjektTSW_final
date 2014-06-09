@@ -144,13 +144,19 @@ app.post('/editNews', function(req, res){
 	    }
     
 });
-
+	var nicks = [];
 app.post('/loginUser', function(req, res){
     var nick = req.body.nick;
-    req.session.nick = nick.replace(/(<([^>]+)>)/ig,"");
-    req.session.user = true;
-    res.send('logged');
-});
+	req.session.nick = nick.replace(/(<([^>]+)>)/ig,"");
+	if (nicks.indexOf(req.session.nick) != -1)
+	{
+	res.send('busy');
+	return false;
+	}
+	req.session.user = true;
+	res.send('logged');
+	nicks.push(req.session.nick);
+	});
 app.post('/login', function(req, res){
     var login = req.body.login;
     var pass = req.body.pass;
@@ -166,6 +172,11 @@ app.get('/logout', function(req, res){
     req.session.admin=false;
     req.session.user=false;
     req.session.nick=null;
+    nickIndex = nicks.indexOf(req.session.nick);
+	if (nickIndex != -1)
+	{
+	nicks.splice(nickIndex, 1);
+	}
     res.sendfile('logout.html');
 });
 

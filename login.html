@@ -1,12 +1,14 @@
-	<p class="opis">Logowanie administratora:</span>
-	<form id="fLogin">
-           <input type="text" name="login" id="iLogin" placeholder="login"/><br />
-           <input type="password" name="password" id="iPass" placeholder="hasło"/><br />
-		 <a id="login" href="#">zaloguj</a>
-		</form>
+<!doctype html>
+<html lang="pl">
+<p class="opis">Logowanie administratora:
+    <form id="fLogin">
+      <input type="text" name="login" id="iLogin" placeholder="login"/><br />
+      <input type="password" name="password" id="iPass" placeholder="hasło"/><br />
+      <a id="login" href="#">zaloguj</a>
+    </form></p>
 		
 		
-	<p class="opis">Chcesz mieć dostęp do relacji live? Podaj swój nick!</span>
+	<p class="opis">Chcesz mieć dostęp do relacji live? Podaj swój nick!
 	<form id="fLoginUser">
         <input type="text" name="nick" id="iNick" placeholder="twój nick"/><br />
 		 <a id="loginUser" href="#">przejdź do live</a>
@@ -43,6 +45,7 @@
 			$('#loginLogoutButton').html('WYLOGUJ <small>('+$('#iNick').val()+')</small>').attr('href', '/logout');
 			$.get('/relacja', function(data) { $('#content').html(data);});
 			}
+			else { alert('Ten nick jest już zajęty'); }
 		  });
 	    });
 	    $('#iNick').keydown(function(event){
@@ -52,3 +55,4 @@
 		    }
 	    });
 	</script>
+	</html>
