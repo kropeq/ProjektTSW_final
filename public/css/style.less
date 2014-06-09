@@ -1,5 +1,9 @@
 @ukrywanie: hidden;
 @font: tahoma;
+@side: left;
+@gradient: top, #1e5799 0%, #2989d8 50%, #7db9e8 100%;
+@gradient_del: top,  #a90329 0%, #8f0222 44%, #6d0019 100%;
+@color: #008DD2;
 
 p {
 font-family: @font;
@@ -25,7 +29,7 @@ body {
 }
 
 #logo {
-	float: left;
+	float: @side;
 	width: 190px;
 	padding-top: 10px;
 	cursor: pointer;
@@ -33,7 +37,7 @@ body {
 
 #menu {
 	display: inline;
-	float: left;
+	float: @side;
 }
 
 #menu ul {
@@ -47,7 +51,7 @@ body {
 
 #menu ul li a {
 	text-decoration: none;
-	color: #008DD2;
+	color: @color;
 	font-family: @font;
 	font-size: 19px;
 	padding: 10px;
@@ -57,16 +61,16 @@ body {
 #menu ul li a:hover {
 	color: #FFF;
 	background: #1e5799; /* Old browsers */
-	background: -moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+	background: -moz-linear-gradient(@gradient);
 	/* FF3.6+ */
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1e5799),
 		color-stop(50%, #2989d8), color-stop(100%, #7db9e8));
 	/* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+	background: -webkit-linear-gradient(@gradient);
 	/* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+	background: -o-linear-gradient(@gradient);
 	/* Opera 11.10+ */
-	background: -ms-linear-gradient(top, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
+	background: -ms-linear-gradient(@gradient);
 	/* IE10+ */
 	background: linear-gradient(to bottom, #1e5799 0%, #2989d8 50%, #7db9e8 100%);
 	/* W3C */
@@ -91,7 +95,7 @@ body {
 
 .newsBox {
 	border-radius: 10px;
-	border: 2px solid #008DD2;
+	border: 2px solid @color;
 	margin: 20px;
 	overflow: auto;
 	position: relative;
@@ -101,7 +105,7 @@ body {
 
 .newsBoxImage img {
 	border-radius: 10px;
-	float: left;
+	float: @side;
 	width: 319px;
 }
 
@@ -197,7 +201,7 @@ text-decoration: none;
 }
 #editArticle, #back {
 text-decoration: none;
-	color: #008DD2;
+	color: @color;
 	font-family: @font;
 	font-size: 19px;
 	padding: 10px;
@@ -207,17 +211,17 @@ text-decoration: none;
 #deleteArticle:hover {
 color: #FFF;
 background: #a90329; /* Old browsers */
-background: -moz-linear-gradient(top,  #a90329 0%, #8f0222 44%, #6d0019 100%); /* FF3.6+ */
+background: -moz-linear-gradient(@gradient_del); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a90329), color-stop(44%,#8f0222), color-stop(100%,#6d0019)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* IE10+ */
+background: -webkit-linear-gradient(@gradient_del); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(@gradient_del); /* Opera 11.10+ */
+background: -ms-linear-gradient(@gradient_del); /* IE10+ */
 background: linear-gradient(to bottom,  #a90329 0%,#8f0222 44%,#6d0019 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a90329', endColorstr='#6d0019',GradientType=0 ); /* IE6-9 */
 }
 #login, #loginUser, #addArticle, #save {
 	text-decoration: none;
-	color: #008DD2;
+	color: @color;
 	font-family: @font;
 	font-size: 19px;
 	padding: 10px;
@@ -250,7 +254,7 @@ overflow: @ukrywanie;
 }
 #leftColumn {
 width: 500px;
-float: left;
+float: @side;
 position: absolute;
 left: 0;
 top: 0;
@@ -264,7 +268,7 @@ color: #FFF;
 padding-top: 15px;
 height: 66px;
 width: 485px;
-float: left;
+float: @side;
 margin-top: -25px;
 padding-left: 15px;
 }
@@ -276,24 +280,24 @@ margin: 10px 0;
 	font-size: 28px;
 width: 80px;
 text-align: center;
-float: left;
+float: @side;
 height: 35px;}
 
 .icon {
 	width: 36px;
-float: left;
+float: @side;
 height: 35px;
 }
 
 .liveDescription {
 width: 350px;
-float: left;
+float: @side;
 padding-top: 5px;
 text-align: justify;
 }
 #rightColumn {
 width: 480px;
-float: left;
+float: @side;
 position: absolute;
 right: 0;
 top: 0;
@@ -324,7 +328,7 @@ padding-right: 15px;
 	border-radius: 5px;
 	background:url("../graph/cloudBackground.png") repeat;
 	padding: 5px;
-	float: left;
+	float: @side;
 	min-height: 30px;
 }
 .cloudDynks{
@@ -333,12 +337,12 @@ padding-right: 15px;
 	margin-top:20px;
 	background:url("../graph/cloudDynks.png") no-repeat center left;
 	padding: 5px;
-	float: left;
+	float: @side;
 }
 .userData {
 	margin-top:5px;
 	display: inline;
-	float: left;
+	float: @side;
 	overflow: @ukrywanie;
 }
 .nick{
@@ -350,7 +354,7 @@ padding-right: 15px;
 padding: 20px;
 }
 #singleArticle img{
-	float: left;
+	float: @side;
 	margin-right: 20px;
 	margin-bottom: 10px; 
 }
@@ -382,12 +386,12 @@ padding: 20px;
 	padding: 20px;
 	position: fixed;
 	bottom: 0;
-	background: #008DD2;
+	background: @color;
 	border-radius: 10px;
 }
 #postLeft {
 	width: 480px;
-	float: left;
+	float: @side;
 }
 #postLeft textarea, #postRight textarea {
 	width: 460px;
@@ -409,7 +413,7 @@ padding: 20px;
 	border-radius: 5px;
 }
 #sendRight:hover, #sendLeft:hover {
-	color: #008DD2;
+	color: @color;
 	background: #FFF;
 }
 .opis {
